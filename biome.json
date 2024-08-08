@@ -1,0 +1,79 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "complexity": {
+        "noForEach": "info",
+        "noBannedTypes": "error"
+      },
+      "correctness": {
+        "noUnusedVariables": {
+          "level": "error",
+          "fix": "none"
+        },
+        "noUndeclaredVariables": "off",
+        "noInvalidUseBeforeDeclaration": "error",
+        "noUnsafeFinally": "error",
+        "noUnsafeOptionalChaining": "error",
+        "noUnusedLabels": "error",
+        "noUnusedImports": "error"
+      },
+      "suspicious": {
+        "noConsoleLog": "off",
+        "noControlCharactersInRegex": "off",
+        "noDebugger": "error",
+        "noPrototypeBuiltins": "off",
+        "noDuplicateObjectKeys": "error",
+        "noDuplicateParameters": "error",
+        "noExplicitAny": "off",
+        "noUnsafeNegation": "error",
+        "noDuplicateCase": "error",
+        "noDuplicateClassMembers": "error"
+      },
+      "style": {
+        "noShoutyConstants": "warn",
+        "useNamingConvention": "off",
+        "useFilenamingConvention": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "ignore": [],
+    "attributePosition": "auto",
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "jsxQuoteStyle": "single",
+      "quoteProperties": "asNeeded",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "single",
+      "lineEnding": "lf",
+      "indentWidth": 2,
+      "indentStyle": "tab"
+    }
+  }
+}

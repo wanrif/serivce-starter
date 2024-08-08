@@ -1,0 +1,42 @@
+{
+	"name": "service-starter",
+	"module": "app.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "bun --hot app.ts",
+		"build": "bun build ./app.ts --outdir ./build",
+		"format": "bunx biome format --write .",
+		"lint": "bunx biome lint --write ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@types/bun": "latest",
+		"@types/express": "^4.17.21",
+		"@types/jsonwebtoken": "^9.0.6",
+		"@types/node": "^20.14.11",
+		"@types/nodemailer": "^6.4.15",
+		"@types/qrcode": "^1.5.5",
+		"@types/speakeasy": "^2.0.10"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@hapi/boom": "^10.0.1",
+		"@node-rs/argon2": "^1.8.3",
+		"@socket.io/redis-adapter": "^8.3.0",
+		"@socket.io/redis-streams-adapter": "^0.2.2",
+		"chalk": "^5.3.0",
+		"cors": "^2.8.5",
+		"express": "^4.19.2",
+		"ioredis": "^5.4.1",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.5.1",
+		"nodemailer": "^6.9.14",
+		"qrcode": "^1.5.3",
+		"socket.io": "^4.7.5",
+		"socket.io-msgpack-parser": "^3.0.2",
+		"speakeasy": "^2.0.0",
+		"zod": "^3.23.8"
+	}
+}

@@ -11,6 +11,7 @@ import customParser from 'socket.io-msgpack-parser';
 import { redisClient } from 'utils/redisHelper';
 import { createAdapter } from '@socket.io/redis-adapter';
 import chatSocket from 'sockets/chatSocket';
+import pino from 'utils/logHelper';
 // import 'services/reloaded';
 
 const app = express();
@@ -44,8 +45,11 @@ app.disable('x-powered-by');
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
+// app.use(pino);
 
-app.get('/', (_req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response) => {
+  pino(req, res);
+  pino.logger.info('PING!');
   res.json({ message: 'PING!' });
 });
 

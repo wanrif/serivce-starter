@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is the capital of France?",
+    "options": ["Berlin", "Paris", "Madrid", "Rome"],
+    "correct": "Paris"
+  },
+  {
+    "question": "What is 2 + 2?",
+    "options": ["3", "4", "5"],
+    "correct": "4"
+  },
+  {
+    "question": "Which planet is known as the Red Planet?",
+    "options": ["Earth", "Venus", "Mars"],
+    "correct": "Mars"
+  },
+  {
+    "question": "Who wrote 'To Kill a Mockingbird'?",
+    "options": ["Harper Lee", "Mark Twain", "J.K. Rowling", "Ernest Hemingway"],
+    "correct": "Harper Lee"
+  },
+  {
+    "question": "What is the largest mammal?",
+    "options": ["Elephant", "Blue Whale", "Giraffe"],
+    "correct": "Blue Whale"
+  },
+  {
+    "question": "Which element has the chemical symbol 'O'?",
+    "options": ["Oxygen", "Gold", "Hydrogen", "Silver"],
+    "correct": "Oxygen"
+  },
+  {
+    "question": "What is the speed of light?",
+    "options": ["300,000 km/s", "150,000 km/s", "299,792 km/s", "100,000 km/s"],
+    "correct": "299,792 km/s"
+  },
+  {
+    "question": "Which ocean is the largest?",
+    "options": ["Atlantic", "Indian", "Pacific", "Arctic"],
+    "correct": "Pacific"
+  },
+  {
+    "question": "What is the currency of Japan?",
+    "options": ["Yuan", "Yen", "Won"],
+    "correct": "Yen"
+  },
+  {
+    "question": "Who painted the Mona Lisa?",
+    "options": ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"],
+    "correct": "Leonardo da Vinci"
+  }
+]

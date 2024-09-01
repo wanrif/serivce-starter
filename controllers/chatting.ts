@@ -1,5 +1,5 @@
 import { boomify } from '@hapi/boom';
-import { type NextFunction, type Request, type Response, Router } from 'express';
+import { type Response, Router } from 'express';
 import authenticate, { type IUserRequest } from 'middleware/authMiddleware';
 import wrapHandler from 'utils/wrapHandler';
 
@@ -17,10 +17,10 @@ const getContacts = async (req: IUserRequest, res: Response) => {
       .exec();
 
     if (!contact) {
-      return res.status(200).json({ message: 'NO_CONTACTS', contactList: [] });
+      return res.status(200).json({ message: 'NO_CONTACTS', data: { contactList: [] } });
     }
 
-    return res.status(200).json({ message: 'GET_CONTACTS', contactList: contact.contactList });
+    return res.status(200).json({ message: 'Success get all contact', data: { contactList: contact.contactList } });
   } catch (error: any) {
     console.error(`${LOG} GET_CONTACTS ${error}`);
     const err = boomify(error);

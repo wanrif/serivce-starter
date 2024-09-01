@@ -1,0 +1,11 @@
+[
+  {
+    "game_name": "Quiz Cihuy",
+    "game_description": "Quiz Cihuy adalah game kuis yang menguji pengetahuan kamu tentang Indonesia. Kamu akan menjawab pertanyaan-pertanyaan yang ada di dalam game ini. Semakin banyak jawaban yang benar, semakin tinggi skormu. Ayo mainkan game ini dan tunjukkan bahwa kamu adalah orang yang paham tentang Indonesia!",
+    "game_image": "assets/game/quiz-cihuy/quiz-cihuy.png",
+    "game_code": "quiz-cihuy",
+    "game_type": "quiz",
+    "game_difficulty": "easy",
+    "game_question": "questions-1.json"
+  }
+]

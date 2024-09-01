@@ -1,5 +1,6 @@
 import { type Boom, badImplementation, badRequest, boomify, unauthorized } from '@hapi/boom';
 import { type Request, type Response, Router } from 'express';
+import authenticate from 'middleware/authMiddleware';
 import qrCode from 'qrcode';
 import { sendMail } from 'services/mailService';
 import { createTokenService, getTokenService } from 'services/tokenService';
@@ -45,7 +46,6 @@ const login = async (req: Request, res: Response) => {
     }
 
     const findUser = await getUserService(email, true);
-    console.log('findUser', findUser);
 
     if (!findUser) {
       console.error(`${LOG} LOGIN User not found!`);
@@ -59,19 +59,14 @@ const login = async (req: Request, res: Response) => {
       throw unauthorized('Invalid credentials!');
     }
 
-    const access_token = JWT.sign({ id: findUser._id, email, name: findUser.name });
+    const access_token = JWT.sign({ id: findUser._id, email, name: findUser.name }, { expiresIn: '15m' });
     const refresh_token = JWT.sign({ email, name: findUser.name }, { expiresIn: '7d' });
 
-    const findToken = await getTokenService(findUser._id as string);
-    if (findToken) {
-      await findToken.updateOne({ access_token, refresh_token });
-    } else {
-      await createTokenService({
-        access_token,
-        refresh_token,
-        user: findUser._id as string,
-      });
-    }
+    await createTokenService({
+      access_token,
+      refresh_token,
+      user: findUser._id as string,
+    });
 
     res.json({
       message: 'User logged in successfully',
@@ -195,23 +190,24 @@ const verifyTwoFA = async (req: Request, res: Response) => {
 
 const refresh = async (req: Request, res: Response) => {
   try {
-    const { refresh_token } = req.body;
+    const refreshToken = req.header('X-Refresh-Token');
+    const refresh_token = refreshToken?.replace('Bearer ', '') || '';
 
     const findToken = await getTokenService(refresh_token);
 
     if (!findToken) {
       console.error(`${LOG} REFRESH Token not found!`);
-      throw unauthorized('Invalid refresh token!');
+      throw unauthorized('INVALID_REFRESH_TOKEN');
     }
 
     const findUser = await getUserService(findToken.user);
 
     if (!findUser) {
       console.error(`${LOG} REFRESH User not found!`);
-      throw unauthorized('Invalid refresh token!');
+      throw unauthorized('INVALID_REFRESH_TOKEN');
     }
 
-    const access_token = JWT.sign({ email: findUser.email });
+    const access_token = JWT.sign({ email: findUser.email }, { expiresIn: '15m' });
     const new_refresh_token = JWT.sign({ email: findUser.email }, { expiresIn: '7d' });
 
     await findToken.updateOne({
@@ -221,7 +217,7 @@ const refresh = async (req: Request, res: Response) => {
 
     res.json({
       message: 'Token refreshed successfully',
-      token: {
+      data: {
         access_token,
         refresh_token: new_refresh_token,
       },
@@ -299,7 +295,7 @@ router.post('/login', login);
 router.post('/register', register);
 router.post('/enable-2fa', enableTwoFA);
 router.post('/verify-2fa', verifyTwoFA);
-router.post('/refresh', refresh);
+router.post('/refresh-token', authenticate, refresh);
 router.post('/send-otp', sendOTP);
 
 export default router;

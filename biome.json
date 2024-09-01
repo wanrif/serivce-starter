@@ -65,7 +65,7 @@
   },
   "json": {
     "formatter": {
-      "trailingCommas": "none"
+      "trailingCommas": "all"
     }
   },
   "css": {

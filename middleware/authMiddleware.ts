@@ -1,3 +1,5 @@
+// auth.middleware.ts
+
 import { boomify, unauthorized } from '@hapi/boom';
 import type { NextFunction, Request, Response } from 'express';
 import type { JwtPayload } from 'jsonwebtoken';
@@ -25,23 +27,41 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
       throw unauthorized('Please authenticate!');
     }
 
-    const decode = JWT.verify(token);
+    try {
+      const decode = JWT.verify(token);
+      const { email } = decode as JwtPayload;
+      const findUser = await getUserService(email);
+      if (!findUser) {
+        console.error(`${LOG} AUTHENTICATE User not found!`);
+        throw unauthorized('Please authenticate!');
+      }
 
-    const findToken = await getTokenService(token);
-    if (!findToken) {
-      console.error(`${LOG} AUTHENTICATE Token not found!`);
-      throw unauthorized('Please authenticate!');
+      (req as IUserRequest).user = findUser;
+      next();
+    } catch (_jwtError) {
+      // If token is expired, check for a refresh token
+      const refreshToken = req.header('X-Refresh-Token');
+      if (!refreshToken) {
+        throw unauthorized('INVALID_TOKEN');
+      }
+
+      const refresh_token = refreshToken.replace('Bearer ', '');
+      const findRefreshToken = await getTokenService(refresh_token);
+      if (!findRefreshToken) {
+        throw unauthorized('INVALID_REFRESH_TOKEN');
+      }
+
+      // Verify refresh token
+      const decoded = JWT.verify(refresh_token);
+      const { email } = decoded as JwtPayload;
+      const findUser = await getUserService(email);
+      if (!findUser) {
+        throw unauthorized('User not found');
+      }
+
+      (req as IUserRequest).user = findUser;
+      next();
     }
-
-    const { email } = decode as JwtPayload;
-    const findUser = await getUserService(email);
-    if (!findUser) {
-      console.error(`${LOG} AUTHENTICATE User not found!`);
-      throw unauthorized('Please authenticate!');
-    }
-
-    (req as IUserRequest).user = findUser;
-    next();
   } catch (err: any) {
     console.error(`${LOG} AUTHENTICATE ${err}`);
     const error = boomify(err);

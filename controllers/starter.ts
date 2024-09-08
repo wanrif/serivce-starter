@@ -1,5 +1,5 @@
 import { type Boom, boomify } from '@hapi/boom';
-import { type Request, type Response, Router } from 'express';
+import { type Response, Router } from 'express';
 import authenticate, { type IUserRequest } from 'middleware/authMiddleware';
 import wrapAsync from 'utils/wrapHandler';
 

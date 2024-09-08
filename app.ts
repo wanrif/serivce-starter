@@ -45,10 +45,9 @@ app.disable('x-powered-by');
 app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
-// app.use(pino);
+app.use(pino);
 
-app.get('/', (req: Request, res: Response) => {
-  pino(req, res);
+app.get('/', (_req: Request, res: Response) => {
   pino.logger.info('PING!');
   res.json({ message: 'PING!' });
 });

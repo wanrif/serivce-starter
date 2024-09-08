@@ -42,7 +42,7 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
       // If token is expired, check for a refresh token
       const refreshToken = req.header('X-Refresh-Token');
       if (!refreshToken) {
-        throw unauthorized('INVALID_TOKEN');
+        throw unauthorized('INVALID_ACCESS_TOKEN');
       }
 
       const refresh_token = refreshToken.replace('Bearer ', '');

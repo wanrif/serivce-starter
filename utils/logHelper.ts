@@ -4,7 +4,7 @@ import PinoPretty from 'pino-pretty';
 const stream = PinoPretty({
   colorize: true,
   ignore: 'pid,hostname',
-  translateTime: 'HH:MM:ss',
+  translateTime: 'SYS:HH:MM:ss.l',
 });
 
 const pino = PinoHttp(
@@ -12,8 +12,8 @@ const pino = PinoHttp(
     formatters: {
       level: (label) => ({ level: label }),
     },
-  }
-  // stream
+  },
+  stream
 );
 
 export default pino;
